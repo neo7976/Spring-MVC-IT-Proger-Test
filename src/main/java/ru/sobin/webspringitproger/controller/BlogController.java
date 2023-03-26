@@ -2,15 +2,14 @@ package ru.sobin.webspringitproger.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.sobin.webspringitproger.models.Post;
 import ru.sobin.webspringitproger.service.PostService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -42,8 +41,15 @@ public class BlogController {
         return "redirect:/blog";
     }
 
-//    @GetMapping("/{id}")
-//    public String getBlog(@RequestParam("id") Long id, Model model) {
-//
-//    }
+    @GetMapping("/{id}")
+    public String getBlogDetailsById(@PathVariable("id") Long id, Model model) {
+        if(!postService.existsById(id)) {
+           return "redirect:/blog";
+        }
+        List<Post> list = new ArrayList<>();
+        var post = postService.findById(id);
+        post.ifPresent(list::add);
+        model.addAttribute("post", list);
+        return "blog-details";
+    }
 }

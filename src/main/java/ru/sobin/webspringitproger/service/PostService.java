@@ -1,6 +1,5 @@
 package ru.sobin.webspringitproger.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +7,7 @@ import ru.sobin.webspringitproger.models.Post;
 import ru.sobin.webspringitproger.repository.PostRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -28,5 +28,13 @@ public class PostService {
                 .build();
         postRepository.save(post);
         log.info("Сохранили {} в БД", post.getTitle());
+    }
+
+    public Optional<Post> findById(Long id) {
+        return postRepository.findById(id);
+    }
+
+    public boolean existsById(Long id) {
+        return postRepository.existsById(id);
     }
 }
