@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.sobin.webspringitproger.models.Post;
 import ru.sobin.webspringitproger.repository.PostRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +37,10 @@ public class PostService {
 
     public boolean existsById(Long id) {
         return postRepository.existsById(id);
+    }
+
+    @Transactional
+    public void addIncrementView(Post post) {
+        postRepository.findByIdAndIncrementView(post.getViews() + 1, post.getId());
     }
 }

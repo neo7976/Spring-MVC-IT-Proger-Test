@@ -1,8 +1,6 @@
 package ru.sobin.webspringitproger.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +47,7 @@ public class BlogController {
         List<Post> list = new ArrayList<>();
         var post = postService.findById(id);
         post.ifPresent(list::add);
+        post.ifPresent(postService::addIncrementView);
         model.addAttribute("post", list);
         return "blog-details";
     }
