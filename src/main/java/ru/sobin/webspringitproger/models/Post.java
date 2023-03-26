@@ -1,8 +1,6 @@
 package ru.sobin.webspringitproger.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Post {
 
     @Id
@@ -23,24 +22,4 @@ public class Post {
     private String fullText;
 
     private int views;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAnons() {
-        return anons;
-    }
-
-    public String getFullText() {
-        return fullText;
-    }
-
-    public int getViews() {
-        return views;
-    }
 }
