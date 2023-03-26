@@ -22,4 +22,6 @@ public class Post {
     private String fullText;
 
     private int views;
+
+    private boolean remove;
 }

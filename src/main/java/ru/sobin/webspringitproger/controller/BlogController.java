@@ -41,14 +41,43 @@ public class BlogController {
 
     @GetMapping("/{id}")
     public String getBlogDetailsById(@PathVariable("id") Long id, Model model) {
-        if(!postService.existsById(id)) {
-           return "redirect:/blog";
+        if (!postService.existsById(id)) {
+            return "redirect:/blog";
         }
         List<Post> list = new ArrayList<>();
         var post = postService.findById(id);
-        post.ifPresent(list::add);
-        post.ifPresent(postService::addIncrementView);
+        list.add(post);
         model.addAttribute("post", list);
         return "blog-details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String blogEdit(@PathVariable("id") Long id, Model model) {
+        if (!postService.existsById(id)) {
+            return "redirect:/blog";
+        }
+        List<Post> list = new ArrayList<>();
+        var post = postService.findById(id);
+        list.add(post);
+        model.addAttribute("post", list);
+        return "blog-edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String blogPostUpdate(@PathVariable("id") Long id,
+                                 @RequestParam("title") String title,
+                                 @RequestParam("anons") String anons,
+                                 @RequestParam("full_text") String fullText,
+                                 Model model) {
+        postService.blogPostUpdate(id, title, anons, fullText);
+        //переадресовываем на другую страницу
+        return "redirect:/blog";
+    }
+
+    @PostMapping("/{id}/remove")
+    public String blogDelete(@PathVariable("id") Long id,
+                             Model model) {
+        postService.blogDelete(id);
+        return "redirect:/blog";
     }
 }
