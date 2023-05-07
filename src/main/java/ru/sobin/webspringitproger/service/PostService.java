@@ -2,15 +2,12 @@ package ru.sobin.webspringitproger.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import ru.sobin.webspringitproger.models.Post;
 import ru.sobin.webspringitproger.repository.PostRepository;
 
-import javax.transaction.NotSupportedException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
